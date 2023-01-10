@@ -1,0 +1,4 @@
+*.nds
+*.elf
+.DS_Store
+build/
