@@ -24,10 +24,18 @@ int main(int argc, char **argv) {
 	NF_InitTiledBgSys(TOP_SCREEN);
 	NF_InitTiledBgSys(BOTTOM_SCREEN);
 
+	// load top bg
+	NF_LoadTiledBg("bg/top", "BG_TOP", 256, 256);
+	NF_CreateTiledBg(TOP_SCREEN, 0, "BG_TOP");
+
+	// load bottom bg
+	NF_LoadTiledBg("bg/bottom", "BG_BOTTOM", 256, 256);
+	NF_CreateTiledBg(BOTTOM_SCREEN, 0, "BG_BOTTOM");
+
 	while(1) {
-
+		NF_SpriteOamSet(BOTTOM_SCREEN);
 		swiWaitForVBlank();
-
+		oamUpdate(&oamMain);
 	}
 
 	return 0;
