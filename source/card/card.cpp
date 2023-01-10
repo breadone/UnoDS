@@ -22,6 +22,8 @@ Card::Card() {
     } else {
         this->colour = (rand() % 4);
     }
+
+    this->spritePath += this->colour + this->number;
 }
 
 Card::Card(int colour, int number) {
