@@ -1,7 +1,7 @@
 /*
-	CeleDSte
+	Uno
 
-	main.c
+	main.cpp
 	created by breadone on 2023-01-10
 */
 
