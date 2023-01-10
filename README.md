@@ -1,3 +1,5 @@
-# Tic Tac Toad
+# UnoDS
 
-first try at a ds game lets gooo
+Uno game for the nintendo ds
+
+made using nflib
