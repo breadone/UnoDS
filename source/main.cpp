@@ -13,7 +13,7 @@
 
 #define TOP_SCREEN 0
 #define BOTTOM_SCREEN 1
-#define STARTING_CARDS 10
+#define STARTING_CARDS 7
 
 int main(int argc, char **argv) {
 
@@ -43,10 +43,13 @@ int main(int argc, char **argv) {
 	std::vector<Card> p1;
 	srand(time(0));
 	for (int i = 0; i < 10; i++) {
-		p1.push_back(Card(BLUE, (rand() % 9) + 1));
+		p1.push_back(Card((rand()%2)+1, (rand() % 9) + 1));
 	}
 
-	NF_LoadSpritePal(p1[0].spritePath.c_str(), BLUE); // only need to load one pallete per card colour
+	// only need to load one pallete per card colour
+	NF_LoadSpritePal("card/1/1", RED);
+	NF_LoadSpritePal("card/2/1", BLUE);
+	NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
 	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
@@ -55,7 +58,7 @@ int main(int argc, char **argv) {
 		NF_LoadSpriteGfx(current.spritePath.c_str(), i, 32, 32);
 		NF_VramSpriteGfx(BOTTOM_SCREEN, i, i, true);
 		
-		NF_CreateSprite(BOTTOM_SCREEN, i, i, BLUE, (32*i) + 3, 120);
+		NF_CreateSprite(BOTTOM_SCREEN, i, i, current.getColour(), (32*i) + 3, 120);
 	}
 
 	while(1) {
