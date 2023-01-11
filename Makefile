@@ -24,7 +24,7 @@ LIBNDS	:=	$(DEVKITPRO)/libnds
 
 GAME_TITLE	    :=	UnoDS
 GAME_SUBTITLE1	:=	breadone
-GAME_SUBTITLE2	:=	Text 3
+GAME_SUBTITLE2	:=	
 GAME_ICON		:=	$(CURDIR)/../icon.bmp
 
 _ADDFILES	:=	-d $(NITRO_FILES)

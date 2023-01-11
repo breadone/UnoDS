@@ -41,19 +41,21 @@ int main(int argc, char **argv) {
 	// make player and sprites
 	// Player *p1 = new Player(false, STARTING_CARDS);
 	std::vector<Card> p1;
-	for (int i = 0; i < 10; i++)
+	srand(time(0));
+	for (int i = 0; i < 10; i++) {
 		p1.push_back(Card(BLUE, (rand() % 9) + 1));
+	}
 
-	NF_LoadSpritePal(p1[0].spritePath.c_str(), BLUE); // only need to load one pallete per card type
+	NF_LoadSpritePal(p1[0].spritePath.c_str(), BLUE); // only need to load one pallete per card colour
 	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
 		Card current = p1[i];
 
-		NF_LoadSpriteGfx(current.spritePath.c_str(), i, 16, 16);
-		NF_VramSpriteGfx(BOTTOM_SCREEN, i, i, false);
+		NF_LoadSpriteGfx(current.spritePath.c_str(), i, 32, 32);
+		NF_VramSpriteGfx(BOTTOM_SCREEN, i, i, true);
 		
-		NF_CreateSprite(BOTTOM_SCREEN, i, i, BLUE, (32*i), 120);
+		NF_CreateSprite(BOTTOM_SCREEN, i, i, BLUE, (32*i) + 3, 120);
 	}
 
 	while(1) {

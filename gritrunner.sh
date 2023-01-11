@@ -1,0 +1,10 @@
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue1.bmp -o nitrofiles/card/2/1 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue2.bmp -o nitrofiles/card/2/2 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue3.bmp -o nitrofiles/card/2/3 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue4.bmp -o nitrofiles/card/2/4 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue5.bmp -o nitrofiles/card/2/5 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue6.bmp -o nitrofiles/card/2/6 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue7.bmp -o nitrofiles/card/2/7 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue8.bmp -o nitrofiles/card/2/8 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue9.bmp -o nitrofiles/card/2/9 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/blue10.bmp -o nitrofiles/card/2/10 -g -gTFF00FF -p -ftb
