@@ -14,7 +14,7 @@
 
 class Card {
 public:
-    std::string spritePath = "card/";
+    std::string spritePath;
     std::string spriteID;
 
     Card();
