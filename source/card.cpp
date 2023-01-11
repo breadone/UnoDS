@@ -6,19 +6,29 @@
 */
 
 #include "card.hpp"
-#include <time.h>
 #include <stdlib.h>
+#include <chrono>
+#include <random>
 
 
 Card::Card() {
-    // choose colour first
-    this->colour = rand() % 4;
+    // set seeds
 
-    // if the card colour is multi, assign it a random number
-    if (this->colour != MULTI) {
-        this->number = (rand() % 10) + 1;
+    // generate random number to determine card type
+    int rnd = rand() % 1024 + 1;
+
+    // 0.125 probability its a multi
+    if ((int) rnd % 8) {
+        this->colour = (rand() % 4) + 1;
     } else {
-        this->number = (rand() % 1) + 1;
+        this->colour = MULTI;
+    }
+
+    // if its multi, 0.33 probabilty its a +4, else change colour
+    if (this->colour == MULTI) {
+        this->number = ((int) rand() % 3) ? 1 : 0;
+    } else {
+        this->number = (rand() % 10) + 1;
     }
 
     this->spritePath = "card/" + std::to_string(this->colour) + "/" + std::to_string(this->number);

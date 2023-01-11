@@ -73,6 +73,12 @@ int main(int argc, char **argv) {
 	}
 
 	while(1) {
+		scanKeys();
+
+		if (keysDown() & KEY_START) {
+			exit(0);
+		}
+
 		NF_SpriteOamSet(BOTTOM_SCREEN);
 		swiWaitForVBlank();
 		oamUpdate(&oamSub);
