@@ -14,6 +14,9 @@
 
 class Card {
 public:
+    std::string spritePath = "card/";
+    std::string spriteID;
+
     Card();
     Card(int colour, int number);
 
@@ -25,5 +28,4 @@ public:
 private:
     int colour;
     int number; // 1-9, 10=skip, 11=reverse, 12=+2, 13=+4, 14=change colour
-    std::string spritePath = "card/";
 };

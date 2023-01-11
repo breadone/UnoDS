@@ -22,15 +22,21 @@ void Player::pickupCard() {
     this->cards.push_back(c);
 }
 
-Card Player::playRandom() {
+Card* Player::playRandom() {
     // random seed
     srand(time(0));
     int index = rand() % this->cards.size();
 
     Card *toPlay = this->cards[index];
     this->cards.erase(cards.begin()+index);
+
+    return toPlay;
 }
 
-Card Player::play(Card &card) {
+Card* Player::play(Card &card) {
+    return 0; // TODO
+}
 
+Card* Player::getCard(int index) {
+    return this->cards[index];
 }

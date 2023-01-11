@@ -17,8 +17,9 @@ public:
     Player(bool bot, int startingCards);
 
     void pickupCard();
-    Card playRandom();
-    Card play(Card &card);
+    Card* playRandom();
+    Card* play(Card &card);
+    Card* getCard(int index);
 
 private:
     std::vector<Card*> cards;

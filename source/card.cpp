@@ -8,7 +8,7 @@
 #include "card.hpp"
 #include <time.h>
 #include <stdlib.h>
-#include "alg.cpp"
+
 
 Card::Card() {
     // seed for rand
@@ -24,11 +24,12 @@ Card::Card() {
     }
 
     this->spritePath += this->colour + this->number;
+    this->spriteID = this->colour + this->number;
 }
 
 Card::Card(int colour, int number) {
     this->colour = colour;
-    this->number = allowableRange(number, 1, 14);
+    this->number = number;
 }
 
 int Card::getColour() {

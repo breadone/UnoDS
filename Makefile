@@ -22,8 +22,8 @@ include $(DEVKITARM)/base_rules
 
 LIBNDS	:=	$(DEVKITPRO)/libnds
 
-GAME_TITLE	    :=	Text 1
-GAME_SUBTITLE1	:=	Text 2
+GAME_TITLE	    :=	UnoDS
+GAME_SUBTITLE1	:=	breadone
 GAME_SUBTITLE2	:=	Text 3
 GAME_ICON		:=	$(CURDIR)/../icon.bmp
 
