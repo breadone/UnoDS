@@ -11,16 +11,14 @@
 
 
 Card::Card() {
-    // seed for rand
-    srand(time(0));
+    // choose colour first
+    this->colour = rand() % 4;
 
-    this->number = (rand() % 14) + 1;
-
-    // if the card number is a +4 or change colour, assign it a random one
-    if (this->number >= 13) {
-        this->colour = MULTI;
+    // if the card colour is multi, assign it a random number
+    if (this->colour != MULTI) {
+        this->number = (rand() % 10) + 1;
     } else {
-        this->colour = (rand() % 4);
+        this->number = (rand() % 1) + 1;
     }
 
     this->spritePath = "card/" + std::to_string(this->colour) + "/" + std::to_string(this->number);

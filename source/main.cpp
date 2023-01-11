@@ -15,6 +15,11 @@
 #define BOTTOM_SCREEN 1
 #define STARTING_CARDS 7
 
+typedef struct {
+	int screen, x, y;
+	int gfx, pal, vram;
+} Sprite;
+
 int main(int argc, char **argv) {
 
 	// init graphics and fs
@@ -43,14 +48,16 @@ int main(int argc, char **argv) {
 	std::vector<Card> p1;
 	srand(time(0));
 	for (int i = 0; i < 10; i++) {
-		p1.push_back(Card((rand()%4)+1, (rand() % 10) + 1));
+		p1.push_back(Card());
 	}
 
-	// only need to load one pallete per card colour
+	// only need to load one palette per card colour
+	NF_LoadSpritePal("card/0/0", MULTI);
 	NF_LoadSpritePal("card/1/1", RED);
 	NF_LoadSpritePal("card/2/1", BLUE);
 	NF_LoadSpritePal("card/3/1", YELLOW);
 	NF_LoadSpritePal("card/4/1", GREEN);
+	NF_VramSpritePal(BOTTOM_SCREEN, MULTI, MULTI);
 	NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
 	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
 	NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);

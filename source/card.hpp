@@ -27,5 +27,7 @@ public:
 
 private:
     int colour;
-    int number; // 1-9, 10=skip, 11=reverse, 12=+2, 13=+4, 14=change colour
+     // 1-9, 10=+2, 11=reverse, 12=reverse
+     // if its a multicolour, 0=change colour, 1=+4
+    int number;
 };
