@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
 	NF_InitTiledBgBuffers();
 	NF_InitTiledBgSys(TOP_SCREEN);
 	NF_InitTiledBgSys(BOTTOM_SCREEN);
+	NF_InitSpriteBuffers();
+	NF_InitSpriteSys(BOTTOM_SCREEN);
 
 	// load top bg
 	NF_LoadTiledBg("bg/top", "BG_TOP", 256, 256);
@@ -37,18 +39,31 @@ int main(int argc, char **argv) {
 
 
 	// make player and sprites
-	Player *p1 = new Player(false, STARTING_CARDS);
-	NF_LoadSpritePal(p1->getCard(0)->spritePath.c_str(), p1->getCard(0)->getColour()); // only need to load one pallete per card type
-	
-	for (int i = 0; i < STARTING_CARDS; i++) {
+	// Player *p1 = new Player(false, STARTING_CARDS);
+	// std::vector<Card> p1;
+	// for (int i = 0; i < 10; i++)
+	// 	p1.push_back(Card(BLUE, (rand() % 9) + 1));
 
-		Card *current = p1->getCard(i);
-		u16 id = i+10;
-		NF_LoadSpriteGfx(current->spritePath.c_str(), i, 16, 16);
+	// NF_LoadSpritePal(p1[0].spritePath.c_str(), p1[0].getColour()); // only need to load one pallete per card type
+
+	// for (int i = 0; i < STARTING_CARDS; i++) {
+
+	// 	Card current = p1[i];
+	// 	NF_LoadSpriteGfx(current.spritePath.c_str(), i, 16, 16);
 		
-		NF_CreateSprite(BOTTOM_SCREEN, i, id, id, (8*i), 120);
-		oamUpdate(&oamSub);
-	}
+	// 	NF_VramSpriteGfx()
+	// 	NF_CreateSprite(BOTTOM_SCREEN, i, i, i, (8*i), 120);
+	// 	oamUpdate(&oamSub);
+	// }
+
+	Card c = Card(BLUE, 4);
+
+	NF_LoadSpriteGfx("card/1/1", 0, 16, 16);
+	NF_LoadSpritePal("card/1/1", 0);
+	NF_VramSpriteGfx(BOTTOM_SCREEN, 0, 0, false);
+	NF_VramSpritePal(BOTTOM_SCREEN, 0, 0);
+
+	NF_CreateSprite(BOTTOM_SCREEN, 0, 0, 0, 12, 120);
 
 	while(1) {
 		NF_SpriteOamSet(BOTTOM_SCREEN);

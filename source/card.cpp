@@ -23,7 +23,7 @@ Card::Card() {
         this->colour = (rand() % 4);
     }
 
-    this->spritePath += this->colour + this->number;
+    this->spritePath += std::to_string(this->colour) + "/" + std::to_string(this->number);
     this->spriteID = this->colour + this->number;
 }
 
