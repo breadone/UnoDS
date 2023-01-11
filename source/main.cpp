@@ -43,14 +43,18 @@ int main(int argc, char **argv) {
 	std::vector<Card> p1;
 	srand(time(0));
 	for (int i = 0; i < 10; i++) {
-		p1.push_back(Card((rand()%2)+1, (rand() % 9) + 1));
+		p1.push_back(Card((rand()%4)+1, (rand() % 10) + 1));
 	}
 
 	// only need to load one pallete per card colour
 	NF_LoadSpritePal("card/1/1", RED);
 	NF_LoadSpritePal("card/2/1", BLUE);
+	NF_LoadSpritePal("card/3/1", YELLOW);
+	NF_LoadSpritePal("card/4/1", GREEN);
 	NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
 	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
+	NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);
+	NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
 		Card current = p1[i];
