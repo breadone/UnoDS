@@ -24,7 +24,6 @@ LIBNDS	:=	$(DEVKITPRO)/libnds
 
 GAME_TITLE	    :=	UnoDS
 GAME_SUBTITLE1	:=	breadone
-GAME_SUBTITLE2	:=	
 GAME_ICON		:=	$(CURDIR)/../icon.bmp
 
 _ADDFILES	:=	-d $(NITRO_FILES)
@@ -32,7 +31,7 @@ _ADDFILES	:=	-d $(NITRO_FILES)
 
 #---------------------------------------------------------------------------------
 %.nds: %.arm9
-	@ndstool -c $@ -9 $< -b $(GAME_ICON) "$(GAME_TITLE);$(GAME_SUBTITLE1);$(GAME_SUBTITLE2)" $(_ADDFILES)
+	@ndstool -c $@ -9 $< -b $(GAME_ICON) "$(GAME_TITLE);$(GAME_SUBTITLE1)" $(_ADDFILES)
 	@echo built ... $(notdir $@)
 
 #---------------------------------------------------------------------------------

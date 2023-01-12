@@ -8,17 +8,14 @@
 #include <stdio.h>
 #include <nds.h>
 #include <nf_lib.h>
+#include <map>
 
-#include "player.hpp"
+// #include "player.hpp"
+#include "screen.cpp"
 
 #define TOP_SCREEN 0
 #define BOTTOM_SCREEN 1
 #define STARTING_CARDS 7
-
-typedef struct {
-	int screen, x, y;
-	int gfx, pal, vram;
-} Sprite;
 
 int main(int argc, char **argv) {
 
@@ -42,42 +39,45 @@ int main(int argc, char **argv) {
 	NF_LoadTiledBg("bg/bottom", "BG_BOTTOM", 256, 256);
 	NF_CreateTiledBg(BOTTOM_SCREEN, 0, "BG_BOTTOM");
 
+	// only need to load one palette per card colour
+	// NF_LoadSpritePal("card/0/0", MULTI);
+	// NF_LoadSpritePal("card/1/1", RED);
+	// NF_LoadSpritePal("card/2/1", BLUE);
+	// NF_LoadSpritePal("card/3/1", YELLOW);
+	// NF_LoadSpritePal("card/4/1", GREEN);
+	// NF_VramSpritePal(BOTTOM_SCREEN, MULTI, MULTI);
+	// NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
+	// NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
+	// NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);
+	// NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
+
 
 	// make player and sprites
+	srand(time(NULL));
 	// Player *p1 = new Player(false, STARTING_CARDS);
 	std::vector<Card> p1;
-	srand(time(0));
-	for (int i = 0; i < 10; i++) {
-		p1.push_back(Card());
-	}
 
-	// only need to load one palette per card colour
-	NF_LoadSpritePal("card/0/0", MULTI);
-	NF_LoadSpritePal("card/1/1", RED);
-	NF_LoadSpritePal("card/2/1", BLUE);
-	NF_LoadSpritePal("card/3/1", YELLOW);
-	NF_LoadSpritePal("card/4/1", GREEN);
-	NF_VramSpritePal(BOTTOM_SCREEN, MULTI, MULTI);
-	NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
-	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
-	NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);
-	NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
+	for (int i = 0; i < STARTING_CARDS; i++)
+		p1.push_back(Card());
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
+		// Card* current = p1->getCard(i);
 		Card current = p1[i];
 
-		NF_LoadSpriteGfx(current.spritePath.c_str(), i, 32, 32);
-		NF_VramSpriteGfx(BOTTOM_SCREEN, i, i, true);
-		
-		NF_CreateSprite(BOTTOM_SCREEN, i, i, current.getColour(), (32*i) + 3, 120);
+		CardSprite c;
+		c.card = &current;
+		c.screen = BOTTOM_SCREEN;
+		c.x = 32 * i;
+		c.y = 130;
+
+		drawCard(c);
 	}
 
 	while(1) {
 		scanKeys();
 
-		if (keysDown() & KEY_START) {
-			exit(0);
-		}
+		// exit key
+		if (keysDown() & KEY_START) { exit(0); }
 
 		NF_SpriteOamSet(BOTTOM_SCREEN);
 		swiWaitForVBlank();
