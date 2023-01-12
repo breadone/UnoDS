@@ -6,6 +6,9 @@
 */
 #include <string>
 
+#ifndef CARD_HPP
+#define CARD_HPP
+
 #define MULTI 0
 #define RED 1
 #define BLUE 2
@@ -31,3 +34,5 @@ private:
      // if its a multicolour, 0=change colour, 1=+4
     int number;
 };
+
+#endif

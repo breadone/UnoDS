@@ -5,6 +5,9 @@
 	created by breadone on 2023-01-11
 */
 
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include "card.hpp"
 #include <vector>
 #include <stdlib.h>
@@ -25,3 +28,5 @@ private:
     std::vector<Card*> cards;
 
 };
+
+#endif

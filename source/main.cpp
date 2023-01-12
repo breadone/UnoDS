@@ -9,9 +9,12 @@
 #include <nds.h>
 #include <nf_lib.h>
 #include <map>
+#include <vector>
+#include <time.h>
 
 // #include "player.hpp"
-#include "screen.cpp"
+#include "screen.hpp"
+#include "card.hpp"
 
 #define TOP_SCREEN 0
 #define BOTTOM_SCREEN 1
