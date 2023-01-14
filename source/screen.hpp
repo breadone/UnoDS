@@ -19,8 +19,6 @@ struct CardSprite {
 	int screen, x, y;
 };
 
-bool isPalLoaded(int);
-bool isGFXLoaded(int, int);
 void drawCard(CardSprite);
 
 #endif
