@@ -11,48 +11,77 @@
 #include <map>
 #include <vector>
 #include <time.h>
+#include <sstream>
 
 // #include "player.hpp"
-#include "screen.hpp"
 #include "card.hpp"
 
 #define TOP_SCREEN 0
 #define BOTTOM_SCREEN 1
 #define STARTING_CARDS 7
 
-int main(int argc, char **argv) {
+// start addresses
+#define MULTI_START 0 // 0
+#define RED_START 15
+#define BLUE_START 30
+#define YELLOW_START 45
+#define GREEN_START 60 // 4
 
-	// init graphics and fs
-	NF_Set2D(TOP_SCREEN, 0);
-	NF_Set2D(BOTTOM_SCREEN, 0);
+void loadCardSprites() {
+	// load sprites
+	for (int col = RED; col <= GREEN; col++) {
+		for (int card = 1; card <= 10; card++) {
+			std::stringstream ss;
+			ss << "card/" << col << "/" << card; // mfw no string interpolation
+
+			u16 id = 15*col + card;
+			NF_LoadSpriteGfx(ss.str().c_str(), id, 32, 32);
+			NF_VramSpriteGfx(BOTTOM_SCREEN, id, id, false);
+			iprintf("Loaded sprite %d\n", card);
+		}
+	}
+
+	// load pal
+	NF_LoadSpritePal("card/0/1", MULTI);
+	NF_LoadSpritePal("card/1/1", RED);
+	NF_LoadSpritePal("card/2/1", BLUE);
+	NF_LoadSpritePal("card/3/1", YELLOW);
+	NF_LoadSpritePal("card/4/1", GREEN);
+	NF_VramSpritePal(BOTTOM_SCREEN, MULTI, MULTI);
+	NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
+	NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
+	NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);
+	NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
+}
+
+int main(int argc, char **argv) {
+	// init fs
 	NF_SetRootFolder("NITROFS");
 
 	// init sprite system
+	NF_Set2D(TOP_SCREEN, 0);
+	NF_Set2D(BOTTOM_SCREEN, 0);
+
 	NF_InitTiledBgBuffers();
 	NF_InitTiledBgSys(TOP_SCREEN);
 	NF_InitTiledBgSys(BOTTOM_SCREEN);
 	NF_InitSpriteBuffers();
 	NF_InitSpriteSys(BOTTOM_SCREEN);
 
-	// load top bg
-	NF_LoadTiledBg("bg/top", "BG_TOP", 256, 256);
-	NF_CreateTiledBg(TOP_SCREEN, 0, "BG_TOP");
-
 	// load bottom bg
-	NF_LoadTiledBg("bg/bottom", "BG_BOTTOM", 256, 256);
+	NF_LoadTiledBg("bg/bottom", "BG_BOTTOM", 512, 256);
 	NF_CreateTiledBg(BOTTOM_SCREEN, 0, "BG_BOTTOM");
 
-	// only need to load one palette per card colour
-	// NF_LoadSpritePal("card/0/0", MULTI);
-	// NF_LoadSpritePal("card/1/1", RED);
-	// NF_LoadSpritePal("card/2/1", BLUE);
-	// NF_LoadSpritePal("card/3/1", YELLOW);
-	// NF_LoadSpritePal("card/4/1", GREEN);
-	// NF_VramSpritePal(BOTTOM_SCREEN, MULTI, MULTI);
-	// NF_VramSpritePal(BOTTOM_SCREEN, RED, RED);
-	// NF_VramSpritePal(BOTTOM_SCREEN, BLUE, BLUE);
-	// NF_VramSpritePal(BOTTOM_SCREEN, YELLOW, YELLOW);
-	// NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
+	// show loading screen
+	NF_LoadTiledBg("bg/loading", "BG_LOAD", 256, 256);
+	NF_CreateTiledBg(TOP_SCREEN, 0, "BG_LOAD");
+
+	// load data
+	loadCardSprites();
+
+	// load real top bg
+	NF_LoadTiledBg("bg/top", "BG_TOP", 256, 256);
+	NF_CreateTiledBg(TOP_SCREEN, 0, "BG_TOP");
 
 
 	// make player and sprites
@@ -66,14 +95,11 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < STARTING_CARDS; i++) {
 		// Card* current = p1->getCard(i);
 		Card current = p1[i];
+		
+		u16 id = 15*current.getColour() + current.getNumber();
 
-		CardSprite c;
-		c.card = &current;
-		c.screen = BOTTOM_SCREEN;
-		c.x = 32 * i;
-		c.y = 130;
-
-		drawCard(c);
+		// drawCard(c);
+		NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 32*i, 130);
 	}
 
 	while(1) {
