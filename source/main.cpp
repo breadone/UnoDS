@@ -62,9 +62,18 @@ void loadCardSprites() {
 	NF_VramSpritePal(BOTTOM_SCREEN, GREEN, GREEN);
 }
 
+void shuffle(std::vector<Card> &deck) {
+	
+	deck.clear();
+
+	for (int i = 0; i < STARTING_CARDS; i++)
+		deck.push_back(Card());
+}
+
 int main(int argc, char **argv) {
 	// init fs
 	NF_SetRootFolder("NITROFS");
+	srand(time(NULL));
 
 	// init sprite system
 	NF_Set2D(TOP_SCREEN, 0);
@@ -91,23 +100,15 @@ int main(int argc, char **argv) {
 	NF_LoadTiledBg("bg/top", "BG_TOP", 256, 256);
 	NF_CreateTiledBg(TOP_SCREEN, 0, "BG_TOP");
 
-
-	// make player and sprites
-	srand(time(NULL));
 	// Player *p1 = new Player(false, STARTING_CARDS);
 	std::vector<Card> p1;
-
-	for (int i = 0; i < STARTING_CARDS; i++)
-		p1.push_back(Card());
+	shuffle(p1);
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
 		// Card* current = p1->getCard(i);
 		Card current = p1[i];
-		
 		u16 id = 15*current.getColour() + current.getNumber();
-
-		// drawCard(c);
-		NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 32*i, 130);
+		NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 16+32*i, 130);
 	}
 
 	while(1) {
@@ -115,6 +116,24 @@ int main(int argc, char **argv) {
 
 		// exit key
 		if (keysDown() & KEY_START) { exit(0); }
+
+		if (keysDown() & KEY_SELECT) {
+
+			for (Card current: p1) {
+				// Card current = p1[i];
+				u16 id = 15*current.getColour() + current.getNumber();
+				NF_DeleteSprite(BOTTOM_SCREEN, id);
+			}
+
+			shuffle(p1);
+
+			int i = 0;
+			for (Card current: p1) {
+				u16 id = 15*current.getColour() + current.getNumber();
+				NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 16+32*i, 130);
+				i++;
+			}
+		}
 
 		NF_SpriteOamSet(BOTTOM_SCREEN);
 		swiWaitForVBlank();
