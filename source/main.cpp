@@ -37,8 +37,16 @@ void loadCardSprites() {
 			u16 id = 15*col + card;
 			NF_LoadSpriteGfx(ss.str().c_str(), id, 32, 32);
 			NF_VramSpriteGfx(BOTTOM_SCREEN, id, id, false);
-			iprintf("Loaded sprite %d\n", card);
 		}
+	}
+
+	// need to do seperately for muti since theres only two cards
+	for (int card = 0; card <= 1; card++) {
+			std::stringstream ss;
+			ss << "card/0/" << card; // mfw no string interpolation
+
+			NF_LoadSpriteGfx(ss.str().c_str(), card, 32, 32);
+			NF_VramSpriteGfx(BOTTOM_SCREEN, card, card, false);
 	}
 
 	// load pal
