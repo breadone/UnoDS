@@ -8,11 +8,10 @@
 #include <stdio.h>
 #include <nds.h>
 #include <nf_lib.h>
-#include <map>
 #include <vector>
 #include <time.h>
 #include <sstream>
-#include <algorithm>
+#include "SpriteManager.hpp"
 
 // #include "player.hpp"
 #include "card.hpp"
@@ -33,22 +32,6 @@ void debug(std::vector<Card> &p1);
 // keep track of sprite ids currently on screen
 std::vector<int> drawnSprites{};
 u8 overflowTOS = 2;
-
-void drawPlayerCards(std::vector<Card> &deck) {
-	int x = 0; // x pos of cards
-	for (Card c: deck) {
-		int newSpriteID = c.spriteID;
-
-		if ( std::find(drawnSprites.begin(), drawnSprites.end(), newSpriteID) != drawnSprites.end()) {
-			newSpriteID = overflowTOS++;
-		}
-
-		drawnSprites.push_back(newSpriteID);
-
-		NF_CreateSprite(BOTTOM_SCREEN, newSpriteID, c.spriteID, c.getColour(), 16+x*32, 130);
-		x++;
-	}
-}
 
 void loadCardSprites() {
 	// load sprites
@@ -96,6 +79,7 @@ int main(int argc, char **argv) {
 	// init fs
 	NF_SetRootFolder("NITROFS");
 	srand(time(NULL));
+	SpriteManager::init();
 
 	// init sprite system
 	NF_Set2D(TOP_SCREEN, 0);
@@ -125,7 +109,7 @@ int main(int argc, char **argv) {
 	// Player *p1 = new Player(false, STARTING_CARDS);
 	std::vector<Card> p1;
 	shuffle(p1);
-	drawPlayerCards(p1);
+	SpriteManager::drawPlayerCards(p1);
 
 	while(1) {
 		scanKeys();
@@ -135,17 +119,14 @@ int main(int argc, char **argv) {
 
 		// shuffle cards
 		if (keysDown() & KEY_SELECT) {
-
 			// delete existing sprites
 			for (int current: drawnSprites) {
 				NF_DeleteSprite(BOTTOM_SCREEN, current);
 			}
 			// reset drawn sprite values
-			drawnSprites.clear();
-			overflowTOS = 2;
+			SpriteManager::init();
 			shuffle(p1);
-			drawPlayerCards(p1);
-
+			SpriteManager::drawPlayerCards(p1);
 		}
 
 		if (keysDown() & KEY_X) {
