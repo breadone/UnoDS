@@ -18,7 +18,7 @@
 class Card {
 public:
     std::string spritePath;
-    std::string spriteID;
+    int spriteID;
 
     Card();
     Card(int colour, int number);

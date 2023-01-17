@@ -1,8 +1,10 @@
-~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/loading.bmp -o nitrofiles/bg/loading -g -gTFF00FF -m -mRtf -mLs -p -ftb
-
-
-
-
-
-
-
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red1 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red2 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red3 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red4 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red5 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red6 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red7 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red8 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red9 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb
+~/Code/Consoles/nds-dev/_nflib/tools/grit/grit assets/card/red10 -o nitrofiles/card/0 -g -gTFF00FF -p -ftb

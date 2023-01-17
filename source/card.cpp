@@ -12,8 +12,6 @@
 
 
 Card::Card() {
-    // set seeds
-
     // generate random number to determine card type
     int rnd = rand() % 1024 + 1;
 
@@ -26,13 +24,13 @@ Card::Card() {
 
     // if its multi, 0.33 probabilty its a +4, else change colour
     if (this->colour == MULTI) {
-        this->number = ((int) rand() % 3) ? 1 : 0;
+        this->number = (rand() % 3) ? 1 : 0;
     } else {
         this->number = (rand() % 10) + 1;
     }
 
     this->spritePath = "card/" + std::to_string(this->colour) + "/" + std::to_string(this->number);
-    this->spriteID = this->colour + this->number;
+    this->spriteID = (15*this->colour) + this->number;
 }
 
 Card::Card(int colour, int number) {
@@ -40,7 +38,7 @@ Card::Card(int colour, int number) {
     this->number = number;
 
     this->spritePath = "card/" + std::to_string(this->colour) + "/" + std::to_string(this->number);
-    this->spriteID = this->colour + this->number;
+    this->spriteID = (15*this->colour) + this->number;
 }
 
 int Card::getColour() {

@@ -21,11 +21,13 @@
 #define STARTING_CARDS 7
 
 // start addresses
-#define MULTI_START 0 // 0
-#define RED_START 15
-#define BLUE_START 30
-#define YELLOW_START 45
-#define GREEN_START 60 // 4
+#define MULTI_START 0	// 0
+#define RED_START 15	// 1
+#define BLUE_START 30	// 2
+#define YELLOW_START 45	// 3
+#define GREEN_START 60	// 4
+
+void debug(std::vector<Card> &p1);
 
 void loadCardSprites() {
 	// load sprites
@@ -36,7 +38,7 @@ void loadCardSprites() {
 
 			u16 id = 15*col + card;
 			NF_LoadSpriteGfx(ss.str().c_str(), id, 32, 32);
-			NF_VramSpriteGfx(BOTTOM_SCREEN, id, id, false);
+			NF_VramSpriteGfx(BOTTOM_SCREEN, id, id, true);
 		}
 	}
 
@@ -46,7 +48,7 @@ void loadCardSprites() {
 			ss << "card/0/" << card; // mfw no string interpolation
 
 			NF_LoadSpriteGfx(ss.str().c_str(), card, 32, 32);
-			NF_VramSpriteGfx(BOTTOM_SCREEN, card, card, false);
+			NF_VramSpriteGfx(BOTTOM_SCREEN, card, card, true);
 	}
 
 	// load pal
@@ -63,7 +65,6 @@ void loadCardSprites() {
 }
 
 void shuffle(std::vector<Card> &deck) {
-	
 	deck.clear();
 
 	for (int i = 0; i < STARTING_CARDS; i++)
@@ -105,10 +106,8 @@ int main(int argc, char **argv) {
 	shuffle(p1);
 
 	for (int i = 0; i < STARTING_CARDS; i++) {
-		// Card* current = p1->getCard(i);
 		Card current = p1[i];
-		u16 id = 15*current.getColour() + current.getNumber();
-		NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 16+32*i, 130);
+		NF_CreateSprite(BOTTOM_SCREEN, current.spriteID, current.spriteID, current.getColour(), 16+32*i, 130);
 	}
 
 	while(1) {
@@ -117,22 +116,24 @@ int main(int argc, char **argv) {
 		// exit key
 		if (keysDown() & KEY_START) { exit(0); }
 
+		// shuffle cards
 		if (keysDown() & KEY_SELECT) {
 
-			for (Card current: p1) {
-				// Card current = p1[i];
-				u16 id = 15*current.getColour() + current.getNumber();
-				NF_DeleteSprite(BOTTOM_SCREEN, id);
-			}
+			// delete existing sprites
+			for (Card current: p1)
+				NF_DeleteSprite(BOTTOM_SCREEN, current.spriteID);
 
 			shuffle(p1);
 
 			int i = 0;
 			for (Card current: p1) {
-				u16 id = 15*current.getColour() + current.getNumber();
-				NF_CreateSprite(BOTTOM_SCREEN, id, id, current.getColour(), 16+32*i, 130);
+				NF_CreateSprite(BOTTOM_SCREEN, current.spriteID, current.spriteID, current.getColour(), 16+32*i, 130);
 				i++;
 			}
+		}
+
+		if (keysDown() & KEY_X) {
+			debug(p1);
 		}
 
 		NF_SpriteOamSet(BOTTOM_SCREEN);
@@ -142,4 +143,12 @@ int main(int argc, char **argv) {
 
 	return 0;
 
+}
+
+void debug(std::vector<Card> &p1) {
+	consoleDemoInit();
+	for (auto i: p1) {
+		iprintf(i.spritePath.c_str());
+		iprintf("\n");
+	}
 }
